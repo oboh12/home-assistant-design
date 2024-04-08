@@ -1,0 +1,66 @@
+Yaml
+
+title: My Home
+resources:
+   - url: /local/
+My-custom-card.js
+   type: module
+views:
+  - title: Overview
+    cards:
+      -type:
+'custom:my-custom-card'
+        some_property: true
+
+
+Javascript
+
+class MyCustomCard extends
+Polymer.Element {
+  static get template() {
+    return Polymer.html
+      <ha-card header="My Custom Card">
+       <div
+class="card-content">
+         Welcome to your custom Lovelace card!
+         $
+{this.config.some_property ?
+'Some custom property is true!' : ""}
+         </div>
+        </ha-card>
+       ;
+     }
+
+     static get properties() {
+       return {
+        hass: Object,
+        config: Object,
+       };
+      }
+
+      setConfig(config) {
+        if (!config || !
+config.some_property) {
+      throw new Error ('Invalid configuration for custom card');
+    }
+
+    this.config = config;
+   }
+}
+
+customElements.define('my-custom-card', MyCustomCard);
+
+
+ui-lovelace.Yaml
+
+title: My Home
+resources:
+  -url:/local/
+my-custom-card.js
+   type: module
+views:
+  - title: Overview
+    cards:
+      - type:
+'custom:my-custom-card'
+        some_property: true
